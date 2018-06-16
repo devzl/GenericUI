@@ -25,9 +25,11 @@ class SCsDropZone extends Component {
     
 
     readJSONFile(f) {
-        const generatedId = shortid.generate()
         const { FilesStore } = this.props;
 
+        const generatedId = shortid.generate()
+
+        // keeping track of added files to support new versions later
         f.generatedId = generatedId
         FilesStore.addFile(f)
     }

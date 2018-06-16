@@ -5,7 +5,6 @@ import App from "./components/App";
 import registerServiceWorker from "./utilis/registerServiceWorker";
 
 import { Provider } from "mobx-react";
-//import UiStore from "./stores/UiStore";
 import FilesStore from "./stores/FilesStore";
 
 const Root = (
