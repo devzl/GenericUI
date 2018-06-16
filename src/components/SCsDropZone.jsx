@@ -1,20 +1,35 @@
 import React, { Component } from "react";
 
+import shortid  from "shortid";
+
+import Dropzone from "react-dropzone";
+
+import { inject, observer } from "mobx-react";
+
+// css
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './style.css';
 
-import Dropzone from "react-dropzone";
+
+
+
 
 // wrapper around console.log
 function cls(itemToLog) {
   console.log(itemToLog);
 }
 
+@inject("FilesStore")
+@observer
 class SCsDropZone extends Component {
+    
 
     readJSONFile(f) {
-        cls("file read");
-        cls(f);
+        const generatedId = shortid.generate()
+        const { FilesStore } = this.props;
+
+        f.generatedId = generatedId
+        FilesStore.addFile(f)
     }
 
     render() {

@@ -26,7 +26,7 @@ class Navbar extends PureComponent {
 	      </div>
 	      <div className="navbar navbar-dark bg-main-color box-shadow">
 	        <div className="container d-flex justify-content-between">
-	          <a href="#" className="navbar-brand d-flex align-items-center">
+	          <a href="/" className="navbar-brand d-flex align-items-center">
 	            <strong>GenericUI</strong>
 	          </a>
 	          <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
