@@ -10,6 +10,10 @@ import { inject, observer } from "mobx-react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './style.css';
 
+// to debug mobx vars
+const mobx = require("mobx");
+
+
 // wrapper around console.log
 function cls(itemToLog) {
   console.log(itemToLog);
@@ -35,8 +39,18 @@ class SCsDropZone extends Component {
         const reader = new FileReader();
 
         reader.onload = () => {
-            var p = JSON.parse(reader.result);
-            cls(p)
+            const p = JSON.parse(reader.result);
+
+            let infos = {}
+
+            infos.generatedId = generatedId
+            infos.contractName = p.contractName
+            infos.abi = p.abi
+            infos.networks = p.networks
+
+            FilesStore.addSMinfos(infos)
+
+            //cls(mobx.toJS(FilesStore.smartContractInfos))
         }
 
         reader.onabort = () => console.log("file reading was aborted");
