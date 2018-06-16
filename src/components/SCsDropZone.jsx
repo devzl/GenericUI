@@ -31,6 +31,19 @@ class SCsDropZone extends Component {
 
         // Adding web3 capabilities
         const { WebStore } = this.props;
+
+        const reader = new FileReader();
+
+        reader.onload = () => {
+            var p = JSON.parse(reader.result);
+            cls(p)
+        }
+
+        reader.onabort = () => console.log("file reading was aborted");
+        reader.onerror = () => console.log("file reading has failed");
+
+        // reads the file
+        reader.readAsBinaryString(f);
     }
 
     render() {
