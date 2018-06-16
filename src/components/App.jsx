@@ -3,6 +3,7 @@ import React, { Component } from "react";
 
 // Compenents imports
 import Navbar from './Navbar.jsx';
+import Content from './Content.jsx'
 
 // css
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -13,6 +14,7 @@ class App extends Component {
     return (
         <div>
           <Navbar />
+          <Content />
         </div>
     );
   }
