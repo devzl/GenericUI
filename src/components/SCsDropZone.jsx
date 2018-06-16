@@ -10,16 +10,12 @@ import { inject, observer } from "mobx-react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './style.css';
 
-
-
-
-
 // wrapper around console.log
 function cls(itemToLog) {
   console.log(itemToLog);
 }
 
-@inject("FilesStore")
+@inject("FilesStore", "WebStore")
 @observer
 class SCsDropZone extends Component {
     
@@ -32,6 +28,9 @@ class SCsDropZone extends Component {
         // keeping track of added files to support new versions later
         f.generatedId = generatedId
         FilesStore.addFile(f)
+
+        // Adding web3 capabilities
+        const { WebStore } = this.props;
     }
 
     render() {

@@ -7,8 +7,10 @@ import registerServiceWorker from "./utilis/registerServiceWorker";
 import { Provider } from "mobx-react";
 import FilesStore from "./stores/FilesStore";
 
+import WebStore from "./stores/WebStore";
+
 const Root = (
-  <Provider FilesStore={FilesStore}>
+  <Provider FilesStore={FilesStore} WebStore={WebStore}>
     <App />
   </Provider>
 );
