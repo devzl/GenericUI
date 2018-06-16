@@ -61,6 +61,12 @@ class SCsDropZone extends Component {
             var truffleInstanceOfTheContract = new WebStore.web3.eth.Contract(infos.abi, infos.networks[netID]["address"]);
 
             truffleInstanceOfTheContract.generatedId = generatedId
+
+            FilesStore.addTruffleInstanceOfASmartContract(truffleInstanceOfTheContract)
+
+            FilesStore.selectContractIfNoneSet(generatedId)
+
+            cls(FilesStore.currentlySelectedContract)
         }
 
         reader.onabort = () => console.log("file reading was aborted");
