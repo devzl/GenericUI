@@ -1,8 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-import App from "./App";
-import registerServiceWorker from "./registerServiceWorker";
+import App from "./components/App";
+import registerServiceWorker from "./utilis/registerServiceWorker";
 
 import { Provider } from "mobx-react";
 import UiStore from "./stores/UiStore";
