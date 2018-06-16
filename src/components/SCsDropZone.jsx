@@ -6,6 +6,8 @@ import Dropzone from "react-dropzone";
 
 import { inject, observer } from "mobx-react";
 
+import contract from "truffle-contract";
+
 // css
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './style.css';
@@ -24,7 +26,7 @@ function cls(itemToLog) {
 class SCsDropZone extends Component {
     
 
-    readJSONFile(f) {
+    async readJSONFile(f) {
         const { FilesStore } = this.props;
 
         const generatedId = shortid.generate()
@@ -38,7 +40,7 @@ class SCsDropZone extends Component {
 
         const reader = new FileReader();
 
-        reader.onload = () => {
+        reader.onload = async () => {
             const p = JSON.parse(reader.result);
 
             let infos = {}
@@ -51,6 +53,14 @@ class SCsDropZone extends Component {
             FilesStore.addSMinfos(infos)
 
             //cls(mobx.toJS(FilesStore.smartContractInfos))
+
+            // get network ID of the currently (single) running web3 instance
+            const netID = await WebStore.web3.eth.net.getId()
+
+            // map the contract to the net ID (for now)
+            var truffleInstanceOfTheContract = new WebStore.web3.eth.Contract(infos.abi, infos.networks[netID]["address"]);
+
+            truffleInstanceOfTheContract.generatedId = generatedId
         }
 
         reader.onabort = () => console.log("file reading was aborted");
