@@ -17,15 +17,25 @@ class ContractEvents extends Component {
     const contractsList = FilesStore.contractEvents[FilesStore.currentlySelectedContract] 
                         && FilesStore.contractEvents[FilesStore.currentlySelectedContract][WebStore.currentNetID]
                         && FilesStore.contractEvents[FilesStore.currentlySelectedContract][WebStore.currentNetID].map((theEvent) => {
-                            return <li className="list-group-item" key={theEvent.transactionHash}>{theEvent.event}</li>;
+                            return (<li className="list-group-item" key={theEvent.transactionHash}>
+                                        <em className="text-info">{theEvent.event}</em>  
+                                        <br />
+                                        {
+                                            Object.keys(theEvent.args).map((elem) => {
+                                                return (
+                                                    <span><span className="text-muted">{elem}</span> : {theEvent.args[elem]}</span>)
+                                                ;
+                                            })
+                                        }
+                                    </li>);
                         })
 
     const emptyList = <li className="list-group-item">None</li>
 
     // TODO: Better and cleaner display of events
     return (
-    	<div className="col-md-4">
-            <div className="card mb-4 box-shadow">
+    	<div className="col-md-5">
+            <div className="card mb-5 box-shadow">
                 <div className="card-header">
                     Emitted events
                 </div>
