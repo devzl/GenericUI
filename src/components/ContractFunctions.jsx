@@ -24,9 +24,11 @@ class ContractFunctions extends Component {
                     Functions
                 </div>
                 <div className="list-group">
-                    {/* TODO - Generate IDs for each abi line*/}
-                    {typeof FilesStore.currentlySelectedContractInfos !== "undefined" && FilesStore.currentlySelectedContractInfos.abi.map((SMinfo, index) => {
-                        return <ASingleFunction key="index" />
+                    {/* Look into the warning later */}
+                    {typeof FilesStore.currentlySelectedContractInfos !== "undefined" && FilesStore.currentlySelectedContractInfos.abi.filter(SMinfo => SMinfo.type === "function").map((SMinfo) => {
+                        return (
+                            <ASingleFunction key="SMinfo.generatedId" SMinfo={SMinfo} />
+                        );
                     })}
                 </div>
             </div>

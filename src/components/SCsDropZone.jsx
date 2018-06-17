@@ -76,6 +76,12 @@ class SCsDropZone extends Component {
             infos.generatedId = generatedId
             infos.contractName = p.contractName
             infos.abi = p.abi
+
+            // generate IDs to loop through them in JSX render
+            for (var i = 0; i < p.abi.length; i++) {
+                p.abi[i].generatedId = shortid.generate()
+            }
+
             infos.networks = p.networks
 
             FilesStore.addSMinfos(infos)
