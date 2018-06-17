@@ -18,7 +18,7 @@ class GeneralInfos extends Component {
 
     const networkId = <li className="list-group-item">Current network: {WebStore.currentNetID}</li>
 
-    // TODO: Better and cleaner display of list
+    // TODO: Better and cleaner display of the infos
     return (
     	<div className="col-md-5">
             <div className="card mb-5 box-shadow">

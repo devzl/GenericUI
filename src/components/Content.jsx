@@ -2,8 +2,9 @@ import React, { Component } from "react";
 
 // Compenents imports
 import SCsDropZone from './SCsDropZone.jsx';
-import ContractsList from'./ContractsList';
-import GeneralInfos from'./GeneralInfos';
+import ContractsList from './ContractsList';
+import GeneralInfos from './GeneralInfos';
+import ContractEvents from './ContractEvents';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './style.css';
@@ -19,6 +20,9 @@ class Content extends Component {
     					<SCsDropZone />
     					<ContractsList />
     					<GeneralInfos />
+    				</div>
+    				<div className="row">
+    					<ContractEvents />
     				</div>
     			</div>
     		</div>
