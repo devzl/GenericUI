@@ -124,7 +124,7 @@ class SCsDropZone extends Component {
 
     render() {
         return (
-            <div className="col-md-4">
+            <div className="col-md-3">
                 <div className="card mb-4 box-shadow">
                     <div className="card-body">
                         <div className="dropzone">

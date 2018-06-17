@@ -2,6 +2,7 @@ import React, { Component } from "react";
 
 // Compenents imports
 import SCsDropZone from './SCsDropZone.jsx';
+import ContractsList from'./ContractsList';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './style.css';
@@ -15,6 +16,7 @@ class Content extends Component {
     			<div className="container-fluid">
     				<div className="row">
     					<SCsDropZone />
+    					<ContractsList />
     				</div>
     			</div>
     		</div>
