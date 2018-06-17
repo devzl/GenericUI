@@ -16,14 +16,16 @@ class ContractEvents extends Component {
 
     const contractsList = FilesStore.contractEvents[FilesStore.currentlySelectedContract] 
                         && FilesStore.contractEvents[FilesStore.currentlySelectedContract][WebStore.currentNetID]
-                        && FilesStore.contractEvents[FilesStore.currentlySelectedContract][WebStore.currentNetID].map((theEvent) => {
+                        && FilesStore.contractEvents[FilesStore.currentlySelectedContract][WebStore.currentNetID].slice().reverse().map((theEvent) => {
                             return (<li className="list-group-item" key={theEvent.transactionHash}>
-                                        <em className="text-info">{theEvent.event}</em>  
+                                        <em className="text-info">{theEvent.event}</em>
+                                        <span className="text-muted"> - </span>
+                                        <span className="text-warning">On block: {theEvent.blockNumber}</span>  
                                         <br />
                                         {
                                             Object.keys(theEvent.args).map((elem) => {
                                                 return (
-                                                    <span><span className="text-muted">{elem}</span> : {theEvent.args[elem]}</span>)
+                                                    <span key="elem"><span className="text-muted">{elem}</span> : {theEvent.args[elem]}</span>)
                                                 ;
                                             })
                                         }
