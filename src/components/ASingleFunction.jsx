@@ -29,7 +29,7 @@ class ASingleFunction extends Component {
                 console.log('A new stateMutability was added, should look into the Solidity docs and add it.')
             }
         } else if (SMinfo.type === "constructor") {
-
+            // TODO see whether to keep 
         } else if (SMinfo.type === "fallback") {
 
         } else {
