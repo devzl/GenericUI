@@ -25,6 +25,31 @@ function cls(itemToLog) {
 @observer
 class SCsDropZone extends Component {
     
+    listenToEvents (contractGeneratedID) {
+        const { FilesStore } = this.props;
+
+        // retrieve a truffle instance of the smart contract by ID
+        let theContract = FilesStore.truffleInstances.find((tc) => tc.generatedId === contractGeneratedID)
+        
+        theContract.deployed().then((instance) => {
+
+            const allEvents = instance.allEvents({
+                fromBlock: 0,
+                toBlock: 'latest'
+            });
+
+            allEvents.watch((err, theEvent) => {
+                if(err) cls(err);
+                else {
+                    // save event
+                }
+            });
+        })
+        .catch(function(err) {
+            console.log(err.message);
+        });
+            
+    }
 
     async readJSONFile(f) {
         const { FilesStore } = this.props;
@@ -68,9 +93,12 @@ class SCsDropZone extends Component {
 
             tc.setProvider(WebStore.web3.currentProvider)
 
+            tc.generatedId = generatedId
+
             FilesStore.addTruffleInstanceOfASmartContract(tc)
 
-            
+            // Starting to listen to events
+            this.listenToEvents(generatedId)
 
             // select currently set up contract if none is set
             FilesStore.selectContractIfNoneSet(generatedId)
