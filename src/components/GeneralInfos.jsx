@@ -14,8 +14,7 @@ class GeneralInfos extends Component {
     const { FilesStore } = this.props;
     const { WebStore } = this.props;
 
-
-    //const selectedContract = <li className="list-group-item">{FilesStore.smartContractInfos.find((tc) => tc.generatedId === FilesStore.currentlySelectedContract).contractName}</li>
+    const selectedContract = <li className="list-group-item">Currently selected smart contract: {typeof FilesStore.currentlySelectedContractInfos !== "undefined" && FilesStore.currentlySelectedContractInfos.contractName}</li>
 
     const networkId = <li className="list-group-item">Current network: {WebStore.currentNetID}</li>
 
@@ -28,6 +27,7 @@ class GeneralInfos extends Component {
                 </div>
                 <ul className="list-group list-group-flush">
                     {networkId}
+                    {typeof FilesStore.currentlySelectedContractInfos !== "undefined" && selectedContract}
                 </ul>
             </div>
         </div>

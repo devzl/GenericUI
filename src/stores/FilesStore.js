@@ -17,6 +17,9 @@ class FilesStore {
 	// id of the currently selected smart contract
 	@observable currentlySelectedContract = ""
 
+	// id of the currently selected smart contract
+	@observable currentlySelectedContractInfos
+
     @action
     addFile = (file) => {
         this.files.push(file)
@@ -41,8 +44,10 @@ class FilesStore {
 
     @action
     selectContractIfNoneSet = (currentSM) => {
-    	if(this.currentlySelectedContract === "")
+    	if(this.currentlySelectedContract === "") {
         	this.currentlySelectedContract = currentSM
+        	this.currentlySelectedContractInfos = this.smartContractInfos.find((c) => c.generatedId === this.currentlySelectedContract)
+    	}
     };
 
     // creating the array that will hold the events for the smart contract/ on netID
