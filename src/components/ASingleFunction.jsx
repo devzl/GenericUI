@@ -13,10 +13,7 @@ const mobx = require("mobx");
 @observer
 class ASingleFunction extends Component {
 
-    func () {
-        const SMinfo = this.props.SMinfo;
-        const idCurrentSM = this.props.idCurrentSM;
-        
+    coreDisplay (SMinfo, idCurrentSM) {        
         console.log(mobx.toJS(SMinfo)) 
 
         if (SMinfo.type === "function") {
@@ -44,10 +41,19 @@ class ASingleFunction extends Component {
         const { FilesStore } = this.props;
         const { WebStore } = this.props;
 
+        const SMinfo = this.props.SMinfo;
+        const idCurrentSM = this.props.idCurrentSM;
+
         // TODO: Better and cleaner display of list
         return (
-        	<span className="list-group-item d-flex justify-content-between align-items-center">
-                {this.func()}
+        	<span className="list-group-item align-items-center">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">{SMinfo.name}</h5>
+                    <small className="text-muted">{SMinfo.stateMutability} - {SMinfo.type}</small>
+                </div>
+                <div>
+                {this.coreDisplay(SMinfo, idCurrentSM)}
+                </div>
             </span>
         );
     }
