@@ -13,22 +13,44 @@ const mobx = require("mobx");
 @observer
 class ASingleFunction extends Component {
 
-  render() {
+    func () {
+        const SMinfo = this.props.SMinfo;
+        const idCurrentSM = this.props.idCurrentSM;
+        
+        console.log(mobx.toJS(SMinfo)) 
 
-    const { FilesStore } = this.props;
-    const { WebStore } = this.props;
+        if (SMinfo.type === "function") {
+            if (SMinfo.stateMutability === "pure") {
 
-    const SMinfo = this.props.SMinfo;
+            } else if (SMinfo.stateMutability === "view") {
 
-    console.log(mobx.toJS(SMinfo))
+            } else if (SMinfo.stateMutability === "nonpayable") {
 
-    // TODO: Better and cleaner display of list
-    return (
-    	<span className="list-group-item d-flex justify-content-between align-items-center">
-            {SMinfo.name}
-        </span>
-    );
-  }
+            } else if (SMinfo.stateMutability === "payable") {
+
+            } else {
+                console.log('A new stateMutability was added, should look into the Solidity docs and add it.')
+            }
+        } else if (SMinfo.type === "constructor") {
+
+        } else if (SMinfo.type === "fallback") {
+
+        } else {
+            console.log('A new type was added, should look into the Solidity docs and add it.')
+        }
+    }
+
+    render() {
+        const { FilesStore } = this.props;
+        const { WebStore } = this.props;
+
+        // TODO: Better and cleaner display of list
+        return (
+        	<span className="list-group-item d-flex justify-content-between align-items-center">
+                {this.func()}
+            </span>
+        );
+    }
 }
 
 export default ASingleFunction;
