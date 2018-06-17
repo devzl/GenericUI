@@ -29,7 +29,7 @@ class SCsDropZone extends Component {
         const { FilesStore } = this.props;
 
         // retrieve a truffle instance of the smart contract by ID
-        let theContract = FilesStore.truffleInstances.find((tc) => tc.generatedId === contractGeneratedID)
+        const theContract = FilesStore.truffleInstances.find((tc) => tc.generatedId === contractGeneratedID)
         
         theContract.deployed().then((instance) => {
 
@@ -42,6 +42,9 @@ class SCsDropZone extends Component {
                 if(err) cls(err);
                 else {
                     // save event
+                    FilesStore.addToEventsArray(contractGeneratedID, FilesStore.currentNetID, theEvent)
+
+                    cls(mobx.toJS(FilesStore.contractEvents))
                 }
             });
         })
@@ -81,6 +84,9 @@ class SCsDropZone extends Component {
             // get network ID of the currently (single) running web3 instance
             const netID = await WebStore.web3.eth.net.getId()
 
+            // won't really change for now cause we use a single web3 instance
+            FilesStore.setCurrentNetID(netID)
+
             // map the contract to the net ID (for now network supposed running and smart contract deployed to)
             var contractWithWeb3 = new WebStore.web3.eth.Contract(infos.abi, infos.networks[netID]["address"]);
 
@@ -96,6 +102,9 @@ class SCsDropZone extends Component {
             tc.generatedId = generatedId
 
             FilesStore.addTruffleInstanceOfASmartContract(tc)
+
+            // create array of events for the smartcontract/on netID
+            FilesStore.createEventsArray(generatedId, netID)
 
             // Starting to listen to events
             this.listenToEvents(generatedId)
