@@ -44,8 +44,6 @@ class SCsDropZone extends Component {
                 else {
                     // save event
                     FilesStore.addToEventsArray(contractGeneratedID, WebStore.currentNetID, theEvent)
-
-                    cls(mobx.toJS(FilesStore.contractEvents))
                 }
             });
         })

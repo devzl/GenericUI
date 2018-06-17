@@ -5,6 +5,7 @@ import { inject, observer } from "mobx-react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './style.css';
 
+// Display a list of the added smart contracts
 @inject("FilesStore")
 @observer
 class ContractsList extends Component {

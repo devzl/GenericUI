@@ -17,7 +17,7 @@ class FilesStore {
 	// id of the currently selected smart contract
 	@observable currentlySelectedContract = ""
 
-	// id of the currently selected smart contract
+	// infos of the currently selected smart contract
 	@observable currentlySelectedContractInfos
 
     @action

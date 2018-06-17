@@ -5,6 +5,7 @@ import SCsDropZone from './SCsDropZone.jsx';
 import ContractsList from './ContractsList';
 import GeneralInfos from './GeneralInfos';
 import ContractEvents from './ContractEvents';
+import ContractFunctions from './ContractFunctions';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './style.css';
@@ -22,6 +23,7 @@ class Content extends Component {
     					<GeneralInfos />
     				</div>
     				<div className="row">
+    					<ContractFunctions />
     					<ContractEvents />
     				</div>
     			</div>
