@@ -11,9 +11,9 @@ class Content extends Component {
   render() {
     return (
     	<main role="main">
-    		<div class="py-5 bg-light">
-    			<div class="container-fluid">
-    				<div class="row">
+    		<div className="py-5 bg-light">
+    			<div className="container-fluid">
+    				<div className="row">
     					<SCsDropZone />
     				</div>
     			</div>

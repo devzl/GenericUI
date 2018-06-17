@@ -6,7 +6,10 @@ class FilesStore {
 
 	@observable smartContractInfos = []
 
-	@observable truffleInstance = []
+	@observable web3Instances = []
+	
+	// truffle-contract instances
+	@observable truffleInstances = []
 
 	// id of the currently selected smart contract
 	@observable currentlySelectedContract = ""
@@ -21,9 +24,16 @@ class FilesStore {
         this.smartContractInfos.push(SMinfos)
     };
 
+    // web 3 instances
+    @action
+    addWeb3InstanceOfASmartContract = (web3Instance) => {
+        this.web3Instances.push(web3Instance)
+    };
+
+    // truffle-contract instances
     @action
     addTruffleInstanceOfASmartContract = (truffleContractInstance) => {
-        this.smartContractInfos.push(truffleContractInstance)
+        this.truffleInstances.push(truffleContractInstance)
     };
 
     @action

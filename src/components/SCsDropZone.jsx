@@ -6,7 +6,7 @@ import Dropzone from "react-dropzone";
 
 import { inject, observer } from "mobx-react";
 
-import contract from "truffle-contract";
+import truffleContract from "truffle-contract";
 
 // css
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -41,6 +41,7 @@ class SCsDropZone extends Component {
         const reader = new FileReader();
 
         reader.onload = async () => {
+            // p, parsed JSON build file
             const p = JSON.parse(reader.result);
 
             let infos = {}
@@ -52,21 +53,29 @@ class SCsDropZone extends Component {
 
             FilesStore.addSMinfos(infos)
 
-            //cls(mobx.toJS(FilesStore.smartContractInfos))
-
             // get network ID of the currently (single) running web3 instance
             const netID = await WebStore.web3.eth.net.getId()
 
-            // map the contract to the net ID (for now)
-            var truffleInstanceOfTheContract = new WebStore.web3.eth.Contract(infos.abi, infos.networks[netID]["address"]);
+            // map the contract to the net ID (for now network supposed running and smart contract deployed to)
+            var contractWithWeb3 = new WebStore.web3.eth.Contract(infos.abi, infos.networks[netID]["address"]);
 
-            truffleInstanceOfTheContract.generatedId = generatedId
+            contractWithWeb3.generatedId = generatedId
 
-            FilesStore.addTruffleInstanceOfASmartContract(truffleInstanceOfTheContract)
+            FilesStore.addWeb3InstanceOfASmartContract(contractWithWeb3)
 
+            // truffle contract
+            let tc = truffleContract(p)
+
+            tc.setProvider(WebStore.web3.currentProvider)
+
+            FilesStore.addTruffleInstanceOfASmartContract(tc)
+
+            
+
+            // select currently set up contract if none is set
             FilesStore.selectContractIfNoneSet(generatedId)
 
-            cls(FilesStore.currentlySelectedContract)
+            
         }
 
         reader.onabort = () => console.log("file reading was aborted");
