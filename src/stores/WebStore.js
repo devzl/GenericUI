@@ -6,9 +6,18 @@ import Web3 from "web3";
 class WebStore {
 	@observable web3
 
+	// id of the currently connected to ethereum network (for now it's locked on one, but perhaps later we will use multiple web3 instances)
+	@observable currentNetID = ""
+
 	constructor() {
 		this.startWeb()
 	}
+
+	// for now always called from SCsDropZone, later won't be if we use multiple web3 instances
+    @action
+    setCurrentNetID = (netId) => {
+        this.currentNetID = netId
+    };
 
     @action
     startWeb = () => {
@@ -18,6 +27,9 @@ class WebStore {
 
         // Fix truffle contracts problem
         this.web3.providers.HttpProvider.prototype.sendAsync = this.web3.providers.HttpProvider.prototype.send;
+
+        //Setting net id
+        this.web3.eth.net.getId().then(netId => this.setCurrentNetID(netId))
     };
 }
 

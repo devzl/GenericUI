@@ -3,6 +3,7 @@ import React, { Component } from "react";
 // Compenents imports
 import SCsDropZone from './SCsDropZone.jsx';
 import ContractsList from'./ContractsList';
+import GeneralInfos from'./GeneralInfos';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './style.css';
@@ -17,6 +18,7 @@ class Content extends Component {
     				<div className="row">
     					<SCsDropZone />
     					<ContractsList />
+    					<GeneralInfos />
     				</div>
     			</div>
     		</div>
