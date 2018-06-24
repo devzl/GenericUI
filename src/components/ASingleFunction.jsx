@@ -20,7 +20,7 @@ const mobx = require("mobx");
 class ASingleFunction extends Component {
 
     // displaying the function
-    functionDisplay (FunctionInfo, idCurrentSM) {  
+    functionDisplayInputs (FunctionInfo, idCurrentSM) {  
         console.log('Function info:')      
         console.log(mobx.toJS(FunctionInfo))
 
@@ -30,17 +30,20 @@ class ASingleFunction extends Component {
             let inputs = []
             for (var i = 0; i < FunctionInfo.inputs.length; i++) {
                 inputs.push(
-                    <FunctionInput inputInfos={FunctionInfo.inputs[i]}
+                    <FunctionInput 
+                    inputInfos={FunctionInfo.inputs[i]}
                     functionId={FunctionInfo.generatedId}
                     inputIndex={i}
-                    idCurrentSM = {idCurrentSM} key={i} />
+                    idCurrentSM = {idCurrentSM} 
+                    key={i} />
                 );
             }
 
             return inputs
         }
          
-
+        /*
+        // Useless for now
         if (FunctionInfo.type === "function") {
             if (FunctionInfo.stateMutability === "pure") {
 
@@ -59,18 +62,31 @@ class ASingleFunction extends Component {
 
         } else {
             console.log('A new type was added, should look into the Solidity docs and add it.')
-        }
+        }*/
     }
 
     executeInputlessFunction (FunctionInfo, idCurrentSM) {
         const { FilesStore } = this.props;
+        const { WebStore } = this.props;
 
         FilesStore.web3Instances.find((SM) => SM.generatedId === idCurrentSM).methods[FunctionInfo.name]().call(function(error, result){
-          if(error) {
-            console.log(error)
-          } else {
-            console.log(result)
-          }
+            if(error) {
+                console.log(error)
+            } else {
+                //console.log(result)
+                
+                if(typeof result === 'object') {
+                    let counter = 0;
+                    for (var key in result) {
+                        if (result.hasOwnProperty(key)) {
+                            FilesStore.modifyCurrentOutputValueForFunctionOutput(result[key], FunctionInfo.generatedId, counter, idCurrentSM);
+                            counter++;
+                        }
+                    }
+                }
+
+                // TODO check for big number
+            }
         });
     }
 
@@ -89,7 +105,7 @@ class ASingleFunction extends Component {
                     <small className="text-muted">{FunctionInfo.stateMutability} - {FunctionInfo.type}</small>
                 </div>
                 <div>
-                {this.functionDisplay(FunctionInfo, idCurrentSM)}
+                {this.functionDisplayInputs(FunctionInfo, idCurrentSM)}
                 </div>
             </span>
         );
