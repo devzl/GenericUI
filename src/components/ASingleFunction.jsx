@@ -6,6 +6,8 @@ import React, { Component } from "react";
 
 import { inject, observer } from "mobx-react";
 
+import FunctionInput from "./FunctionInput";
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './style.css';
 
@@ -17,9 +19,27 @@ const mobx = require("mobx");
 @observer
 class ASingleFunction extends Component {
 
+    /*constructor(props) {
+        super(props);
+        this.handleInputModification = this.handleInputModification.bind(this);
+    }
+
+    handleInputModification (newValue, functionId, inputIndex) {
+
+    }*/
+
     // displaying the function
-    functionDisplay (SMinfo, idCurrentSM) {        
-        console.log(mobx.toJS(SMinfo)) 
+    functionDisplay (SMinfo, idCurrentSM) {  
+        console.log('Here:')      
+        console.log(mobx.toJS(SMinfo))
+
+        for (var i = 0; i < SMinfo.inputs.length; i++) {
+            return (
+                <FunctionInput inputInfos={SMinfo.inputs[i]}
+                functionId={SMinfo.generatedId}
+                inputIndex={i} />
+            );
+        } 
 
         if (SMinfo.type === "function") {
             if (SMinfo.stateMutability === "pure") {

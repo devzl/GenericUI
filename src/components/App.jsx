@@ -1,3 +1,7 @@
+/**
+* Base component for the front page
+*/
+
 // modules imports
 import React, { Component } from "react";
 
