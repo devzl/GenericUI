@@ -27,6 +27,9 @@ class FilesStore {
     // this structure was chosen to keep the modifications of the values atomic and not mix them directly into smartContractInfos
     @observable functionsInputsValues = {}
 
+    // same reasonning as for the variable above
+    @observable functionsOutputsValues = {}
+
     @action
     addFile = (file) => {
         this.files.push(file)
@@ -36,17 +39,38 @@ class FilesStore {
     addSMinfos = (SMinfos) => {
         this.smartContractInfos.push(SMinfos)
         this.generateInputValueStructure(SMinfos)
+        this.generateOutputValueStructure(SMinfos)
     };
 
     // Creating storing structure for input values of the functions: var["smart contract ID"]["function ID"]["Input index"]
+
     @action
     generateInputValueStructure = (SMinfos) => {
         this.functionsInputsValues[SMinfos.generatedId] = {}
         
         for (var i = 0; i < SMinfos.abi.length; i++) {
             this.functionsInputsValues[SMinfos.generatedId][SMinfos.abi[i].generatedId] = []
-            for (var j = 0; j < SMinfos.abi[i].inputs.length; j++) {
-                this.functionsInputsValues[SMinfos.generatedId][SMinfos.abi[i].generatedId].push("")
+
+            if(SMinfos.abi[i].type !== "event") {
+                for (var j = 0; j < SMinfos.abi[i].inputs.length; j++) {
+                    this.functionsInputsValues[SMinfos.generatedId][SMinfos.abi[i].generatedId].push("")
+                }
+            }
+        }
+    };
+
+    // same reasoning as above
+    @action
+    generateOutputValueStructure = (SMinfos) => {
+        this.functionsOutputsValues[SMinfos.generatedId] = {}
+        
+        for (var i = 0; i < SMinfos.abi.length; i++) {
+            this.functionsOutputsValues[SMinfos.generatedId][SMinfos.abi[i].generatedId] = []
+
+            if(SMinfos.abi[i].type !== "event") {
+                for (var j = 0; j < SMinfos.abi[i].outputs.length; j++) {
+                    this.functionsOutputsValues[SMinfos.generatedId][SMinfos.abi[i].generatedId].push("")
+                }
             }
         }
     };
@@ -87,6 +111,12 @@ class FilesStore {
     @action
     modifyCurrentInputValueForFunctionInput = (newValue, functionId, inputIndex, idCurrentSM) => {
         this.functionsInputsValues[idCurrentSM][functionId][inputIndex] = newValue
+    };
+
+    // Stores the output value returned from function call
+    @action
+    modifyCurrentOutputValueForFunctionOutput = (newValue, functionId, inputIndex, idCurrentSM) => {
+        this.functionsOutputsValues[idCurrentSM][functionId][inputIndex] = newValue
     };
 }
 

@@ -24,14 +24,22 @@ class ASingleFunction extends Component {
         console.log('Function info:')      
         console.log(mobx.toJS(FunctionInfo))
 
-        for (var i = 0; i < FunctionInfo.inputs.length; i++) {
-            return (
-                <FunctionInput inputInfos={FunctionInfo.inputs[i]}
-                functionId={FunctionInfo.generatedId}
-                inputIndex={i}
-                idCurrentSM = {idCurrentSM} />
-            );
-        } 
+        if(FunctionInfo.inputs.length <= 0) {
+            this.executeInputlessFunction(FunctionInfo, idCurrentSM)
+        } else {
+            let inputs = []
+            for (var i = 0; i < FunctionInfo.inputs.length; i++) {
+                inputs.push(
+                    <FunctionInput inputInfos={FunctionInfo.inputs[i]}
+                    functionId={FunctionInfo.generatedId}
+                    inputIndex={i}
+                    idCurrentSM = {idCurrentSM} key={i} />
+                );
+            }
+
+            return inputs
+        }
+         
 
         if (FunctionInfo.type === "function") {
             if (FunctionInfo.stateMutability === "pure") {
@@ -54,10 +62,21 @@ class ASingleFunction extends Component {
         }
     }
 
+    executeInputlessFunction (FunctionInfo, idCurrentSM) {
+        const { FilesStore } = this.props;
+
+        FilesStore.web3Instances.find((SM) => SM.generatedId === idCurrentSM).methods[FunctionInfo.name]().call(function(error, result){
+          if(error) {
+            console.log(error)
+          } else {
+            console.log(result)
+          }
+        });
+    }
+
     render() {
         // SM means Smart contract
         const { FilesStore } = this.props;
-        const { WebStore } = this.props;
 
         const FunctionInfo = this.props.FunctionInfo;
         const idCurrentSM = this.props.idCurrentSM;
