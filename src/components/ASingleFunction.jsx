@@ -1,3 +1,7 @@
+/**
+* Extracts inputs and outputs of a function and manages them
+*/
+
 import React, { Component } from "react";
 
 import { inject, observer } from "mobx-react";
@@ -13,7 +17,8 @@ const mobx = require("mobx");
 @observer
 class ASingleFunction extends Component {
 
-    coreDisplay (SMinfo, idCurrentSM) {        
+    // displaying the function
+    functionDisplay (SMinfo, idCurrentSM) {        
         console.log(mobx.toJS(SMinfo)) 
 
         if (SMinfo.type === "function") {
@@ -38,6 +43,7 @@ class ASingleFunction extends Component {
     }
 
     render() {
+        // SM means Smart contract
         const { FilesStore } = this.props;
         const { WebStore } = this.props;
 
@@ -47,12 +53,12 @@ class ASingleFunction extends Component {
         // TODO: Better and cleaner display of list
         return (
         	<span className="list-group-item align-items-center">
-                <div class="d-flex w-100 justify-content-between">
-                    <h5 class="mb-1">{SMinfo.name}</h5>
+                <div className="d-flex w-100 justify-content-between">
+                    <h5 className="mb-1">{SMinfo.name}</h5>
                     <small className="text-muted">{SMinfo.stateMutability} - {SMinfo.type}</small>
                 </div>
                 <div>
-                {this.coreDisplay(SMinfo, idCurrentSM)}
+                {this.functionDisplay(SMinfo, idCurrentSM)}
                 </div>
             </span>
         );

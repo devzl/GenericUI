@@ -1,3 +1,7 @@
+/**
+* Shows a list of the added contracts 
+*/
+
 import React, { Component } from "react";
 
 import { inject, observer } from "mobx-react";

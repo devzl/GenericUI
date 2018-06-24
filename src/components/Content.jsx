@@ -1,3 +1,7 @@
+/**
+* Manages the components shown on the front page
+*/
+
 import React, { Component } from "react";
 
 // Compenents imports

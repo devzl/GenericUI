@@ -1,3 +1,7 @@
+/**
+* Manages the drag-and-dropz component
+*/
+
 import React, { Component } from "react";
 
 import shortid  from "shortid";

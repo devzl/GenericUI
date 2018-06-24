@@ -1,3 +1,7 @@
+/**
+* Extract and shows a contract's functions
+*/
+
 import React, { Component } from "react";
 
 import { inject, observer } from "mobx-react";

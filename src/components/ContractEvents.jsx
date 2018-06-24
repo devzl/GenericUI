@@ -1,3 +1,7 @@
+/**
+* Shows a selected contract events
+*/
+
 import React, { Component } from "react";
 
 import { inject, observer } from "mobx-react";
