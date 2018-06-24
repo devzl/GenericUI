@@ -30,9 +30,9 @@ class ContractFunctions extends Component {
                 <div className="list-group">
                     {/* Look into the warning later */}
                     {/* make sure no other type than event, function, fallback, constructor are added later to solidity */}
-                    {typeof FilesStore.currentlySelectedContractInfos !== "undefined" && FilesStore.currentlySelectedContractInfos.abi.filter(SMinfo => SMinfo.type !== "event").map((SMinfo) => {
+                    {typeof FilesStore.currentlySelectedContractInfos !== "undefined" && FilesStore.currentlySelectedContractInfos.abi.filter(FunctionInfo => FunctionInfo.type !== "event").map((FunctionInfo) => {
                         return (
-                            <ASingleFunction key="SMinfo.generatedId" SMinfo={SMinfo} idCurrentSM={FilesStore.currentlySelectedContractInfos.generatedId} />
+                            <ASingleFunction key="FunctionInfo.generatedId" FunctionInfo={FunctionInfo} idCurrentSM={FilesStore.currentlySelectedContractInfos.generatedId} />
                         );
                     })}
                 </div>

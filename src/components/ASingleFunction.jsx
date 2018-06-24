@@ -19,43 +19,35 @@ const mobx = require("mobx");
 @observer
 class ASingleFunction extends Component {
 
-    /*constructor(props) {
-        super(props);
-        this.handleInputModification = this.handleInputModification.bind(this);
-    }
-
-    handleInputModification (newValue, functionId, inputIndex) {
-
-    }*/
-
     // displaying the function
-    functionDisplay (SMinfo, idCurrentSM) {  
-        console.log('Here:')      
-        console.log(mobx.toJS(SMinfo))
+    functionDisplay (FunctionInfo, idCurrentSM) {  
+        console.log('Function info:')      
+        console.log(mobx.toJS(FunctionInfo))
 
-        for (var i = 0; i < SMinfo.inputs.length; i++) {
+        for (var i = 0; i < FunctionInfo.inputs.length; i++) {
             return (
-                <FunctionInput inputInfos={SMinfo.inputs[i]}
-                functionId={SMinfo.generatedId}
-                inputIndex={i} />
+                <FunctionInput inputInfos={FunctionInfo.inputs[i]}
+                functionId={FunctionInfo.generatedId}
+                inputIndex={i}
+                idCurrentSM = {idCurrentSM} />
             );
         } 
 
-        if (SMinfo.type === "function") {
-            if (SMinfo.stateMutability === "pure") {
+        if (FunctionInfo.type === "function") {
+            if (FunctionInfo.stateMutability === "pure") {
 
-            } else if (SMinfo.stateMutability === "view") {
+            } else if (FunctionInfo.stateMutability === "view") {
 
-            } else if (SMinfo.stateMutability === "nonpayable") {
+            } else if (FunctionInfo.stateMutability === "nonpayable") {
 
-            } else if (SMinfo.stateMutability === "payable") {
+            } else if (FunctionInfo.stateMutability === "payable") {
 
             } else {
                 console.log('A new stateMutability was added, should look into the Solidity docs and add it.')
             }
-        } else if (SMinfo.type === "constructor") {
+        } else if (FunctionInfo.type === "constructor") {
             // TODO see whether to keep 
-        } else if (SMinfo.type === "fallback") {
+        } else if (FunctionInfo.type === "fallback") {
 
         } else {
             console.log('A new type was added, should look into the Solidity docs and add it.')
@@ -67,18 +59,18 @@ class ASingleFunction extends Component {
         const { FilesStore } = this.props;
         const { WebStore } = this.props;
 
-        const SMinfo = this.props.SMinfo;
+        const FunctionInfo = this.props.FunctionInfo;
         const idCurrentSM = this.props.idCurrentSM;
 
         // TODO: Better and cleaner display of list
         return (
         	<span className="list-group-item align-items-center">
                 <div className="d-flex w-100 justify-content-between">
-                    <h5 className="mb-1">{SMinfo.name}</h5>
-                    <small className="text-muted">{SMinfo.stateMutability} - {SMinfo.type}</small>
+                    <h5 className="mb-1">{FunctionInfo.name}</h5>
+                    <small className="text-muted">{FunctionInfo.stateMutability} - {FunctionInfo.type}</small>
                 </div>
                 <div>
-                {this.functionDisplay(SMinfo, idCurrentSM)}
+                {this.functionDisplay(FunctionInfo, idCurrentSM)}
                 </div>
             </span>
         );
