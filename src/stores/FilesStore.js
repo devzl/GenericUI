@@ -38,19 +38,17 @@ class FilesStore {
         this.generateInputValueStructure(SMinfos)
     };
 
-    // var["smart contract ID"]["function ID"]["Input index"]
+    // Creating storing structure for input values of the functions: var["smart contract ID"]["function ID"]["Input index"]
     @action
     generateInputValueStructure = (SMinfos) => {
-        //console.log(SMinfos)
         this.functionsInputsValues[SMinfos.generatedId] = {}
-        //console.log(mobx.toJS(this.functionsInputsValues))
+        
         for (var i = 0; i < SMinfos.abi.length; i++) {
             this.functionsInputsValues[SMinfos.generatedId][SMinfos.abi[i].generatedId] = []
             for (var j = 0; j < SMinfos.abi[i].inputs.length; j++) {
                 this.functionsInputsValues[SMinfos.generatedId][SMinfos.abi[i].generatedId].push("")
             }
         }
-        //console.log(mobx.toJS(this.functionsInputsValues))
     };
 
     // web 3 instances
@@ -85,12 +83,10 @@ class FilesStore {
         this.contractEvents[id][netId].push(newEvent)
     };
 
-    // Stores the input value taken from the display for the functions display inside the smartContractInfos variable
-    // If this turns out to be inefficient later on, replace with a
+    // Stores the input value taken from the display of the abi functions
     @action
     modifyCurrentInputValueForFunctionInput = (newValue, functionId, inputIndex, idCurrentSM) => {
-        /*this.smartContractInfos.find((c) => c.generatedId === idCurrentSM)
-            .abi.find((f) => f.generatedId === functionId).inputs[inputIndex]["inputValue"] = newValue*/
+
         this.functionsInputsValues[idCurrentSM][functionId][inputIndex] = newValue
 
         console.log(mobx.toJS(this.functionsInputsValues))
