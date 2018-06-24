@@ -86,10 +86,7 @@ class FilesStore {
     // Stores the input value taken from the display of the abi functions
     @action
     modifyCurrentInputValueForFunctionInput = (newValue, functionId, inputIndex, idCurrentSM) => {
-
         this.functionsInputsValues[idCurrentSM][functionId][inputIndex] = newValue
-
-        console.log(mobx.toJS(this.functionsInputsValues))
     };
 }
 
