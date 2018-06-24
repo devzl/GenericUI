@@ -7,6 +7,7 @@ import React, { Component } from "react";
 import { inject, observer } from "mobx-react";
 
 import FunctionInput from "./FunctionInput";
+import FunctionOutput from "./FunctionOutput";
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './style.css';
@@ -19,7 +20,7 @@ const mobx = require("mobx");
 @observer
 class ASingleFunction extends Component {
 
-    // displaying the function
+    // displaying the function inputs
     functionDisplayInputs (FunctionInfo, idCurrentSM) {  
         console.log('Function info:')      
         console.log(mobx.toJS(FunctionInfo))
@@ -65,6 +66,22 @@ class ASingleFunction extends Component {
         }*/
     }
 
+    functionDisplayOutputs (FunctionInfo, idCurrentSM) { 
+        let outputs = []
+        for (var i = 0; i < FunctionInfo.outputs.length; i++) {
+            outputs.push(
+                <FunctionOutput
+                outputInfos={FunctionInfo.outputs[i]}
+                functionId={FunctionInfo.generatedId}
+                outputIndex={i}
+                idCurrentSM = {idCurrentSM} 
+                key={i} />
+            );
+        }
+
+        return outputs
+    }
+
     executeInputlessFunction (FunctionInfo, idCurrentSM) {
         const { FilesStore } = this.props;
         const { WebStore } = this.props;
@@ -83,6 +100,8 @@ class ASingleFunction extends Component {
                             counter++;
                         }
                     }
+                } else if (typeof result === 'string') {
+                    FilesStore.modifyCurrentOutputValueForFunctionOutput(result, FunctionInfo.generatedId, 0, idCurrentSM);
                 }
 
                 // TODO check for big number
@@ -105,7 +124,12 @@ class ASingleFunction extends Component {
                     <small className="text-muted">{FunctionInfo.stateMutability} - {FunctionInfo.type}</small>
                 </div>
                 <div>
+                <hr />
+                <small>Inputs:</small>
                 {this.functionDisplayInputs(FunctionInfo, idCurrentSM)}
+                <hr />
+                <small>Outputs:</small>
+                {this.functionDisplayOutputs(FunctionInfo, idCurrentSM)}
                 </div>
             </span>
         );

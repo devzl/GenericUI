@@ -5,7 +5,7 @@ import { inject, observer } from "mobx-react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './style.css';
 
-// Display a list of the selected smart contract's functions
+// Display intput of a function
 @inject("FilesStore")
 @observer
 class FunctionInput extends Component {
