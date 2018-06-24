@@ -24,7 +24,7 @@ class FunctionOutput extends Component {
 
   		if(outputInfos.type.startsWith("bytes")) {
   			if(FilesStore.functionsOutputsValues[idCurrentSM][functionId][outputIndex].length > 0) {
-	  			returnValue = WebStore.web3.utils.toAscii(FilesStore.functionsOutputsValues[idCurrentSM][functionId][outputIndex])
+	  			returnValue = WebStore.web3.utils.toAscii(FilesStore.functionsOutputsValues[idCurrentSM][functionId][outputIndex]).replace(/\u0000/g, '')
   			}
   		} else {
   			returnValue = FilesStore.functionsOutputsValues[idCurrentSM][functionId][outputIndex]
