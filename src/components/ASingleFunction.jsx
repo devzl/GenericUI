@@ -20,6 +20,41 @@ const mobx = require("mobx");
 @observer
 class ASingleFunction extends Component {
 
+    displayButton (FunctionInfo, idCurrentSM) {
+        if(FunctionInfo.inputs.length > 0) {
+            return (
+                    <span>
+                        <hr />
+                        <button  type="button" className="btn btn-primary btn-lg btn-block">Execute</button>
+                    </span>
+                );
+        }
+    }
+
+    // Whether to show inputs tags
+    showInputs (FunctionInfo, idCurrentSM) {
+        if(FunctionInfo.inputs.length > 0) {
+            return (
+                    <span>
+                        <hr />
+                        <small>Inputs:</small>
+                    </span>
+                );
+        }
+    }
+
+    // Whether to show inputs tags
+    showOuputs (FunctionInfo, idCurrentSM) {
+        if(FunctionInfo.outputs.length > 0) {
+            return (
+                    <span>
+                        <hr />
+                        <small>Outputs:</small>
+                    </span>
+                );
+        }
+    }
+
     // displaying the function inputs
     functionDisplayInputs (FunctionInfo, idCurrentSM) {  
         console.log('Function info:')      
@@ -116,20 +151,23 @@ class ASingleFunction extends Component {
         const FunctionInfo = this.props.FunctionInfo;
         const idCurrentSM = this.props.idCurrentSM;
 
+        const order = this.props.order;
+
         // TODO: Better and cleaner display of list
         return (
-        	<span className="list-group-item align-items-center">
+        	<span className={"list-group-item align-items-center " + (order % 2 != 0 ? 'light-grey-background' : null) }>
                 <div className="d-flex w-100 justify-content-between">
                     <h5 className="mb-1">{FunctionInfo.name}</h5>
                     <small className="text-muted">{FunctionInfo.stateMutability} - {FunctionInfo.type}</small>
                 </div>
                 <div>
-                <hr />
-                <small>Inputs:</small>
+                {this.showInputs(FunctionInfo, idCurrentSM)}
                 {this.functionDisplayInputs(FunctionInfo, idCurrentSM)}
-                <hr />
-                <small>Outputs:</small>
+                
+                {this.showOuputs(FunctionInfo, idCurrentSM)}
                 {this.functionDisplayOutputs(FunctionInfo, idCurrentSM)}
+
+                {this.displayButton(FunctionInfo, idCurrentSM)}
                 </div>
             </span>
         );
